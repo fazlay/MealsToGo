@@ -1,4 +1,5 @@
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
+import React from "react";
 import { SafeAreaView, StyleSheet, Text, View, StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./infrustructures/theme";
@@ -16,14 +17,12 @@ const TAB_ICON = {
   Settings: "md-settings",
 };
 
-const creatScreenOptions = ({ route }) => {
+const createScreenOptions = ({ route }) => {
   const iconName = TAB_ICON[route.name];
   return {
-    tabBarIcon: ({ size, color }) => {
-      <Ionicons name={iconName} size={size} color={color} />;
-    },
-    tabBarActiveTintColor: "tomato",
-    tabBarInactiveTintColor: "gray",
+    tabBarIcon: ({ size, color }) => (
+      <Ionicons name={iconName} size={size} color={color} />
+    ),
   };
 };
 export default function App() {
@@ -31,7 +30,13 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <NavigationContainer>
-          <Tab.Navigator screenOptions={creatScreenOptions}>
+          <Tab.Navigator
+            screenOptions={createScreenOptions}
+            tabBarOptions={{
+              activeTintColor: "tomato",
+              inactiveTintColor: "gray",
+            }}
+          >
             <Tab.Screen name="Restaurent" component={RestaurentsScreen} />
             <Tab.Screen name="MapScreen" component={MapScreen} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
